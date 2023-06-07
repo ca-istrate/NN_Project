@@ -12,6 +12,7 @@ if __name__ == '__main__':
     folder = input("File directory to be scanned:")  # filepath
     sort = input("Sort classes? Y/N ")  # if the data should be sorted
     for root, dirs, files in os.walk(folder):
+        files = [file for file in files if file != "archive.zip"]
         f = os.path.basename(root)
         if len(files) > 0:  # if there are files in a folder
             count.append(len(files))  # append their number
@@ -33,7 +34,11 @@ if __name__ == '__main__':
     plt.bar(range(type_count), trainCount[0:type_count], label='Train data')
     plt.bar(range(type_count), testCount[0:type_count], label='Test data')
     # print last 10 elements
-    print(classes[type_count-10:type_count])
+    classPrint = classes[type_count-22:type_count-10]
+    with open('output.txt', 'w') as file:
+        for name in classes[type_count-22:type_count-10]:
+            file.write(name[0] + "\n")
+    print(classes[type_count-22:type_count-10])
     ax.grid()
     ax.legend(fontsize=12)
     plt.show()
