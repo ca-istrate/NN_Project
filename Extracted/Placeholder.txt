@@ -1,1 +1,2 @@
-Yolo
+Btw, it seems we do not need a placeholder for the folder. The code can generate a new folder with no problems.
+I will keep this here for the sake of redundancy

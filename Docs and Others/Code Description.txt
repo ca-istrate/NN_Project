@@ -1,0 +1,16 @@
+This file should be used to describe what our various programs should do for the sake of documentation.
+
+ExtractData.py:
+    ->Select a directory to analyze
+    ->Choose to sort the entries (Should always sort when intending to use the MoveStuff.py)
+    ->Display a graph with the data
+        ->Blue lines represent the training data
+        ->Orange lines represent the test data
+    ->Save to "output.txt" the data of a predefined interval of classes
+    ->Output to console the same predefined set ⩤maybe we should make it settable at runtime?⩥
+
+MoveStuff.py
+    ->Read from "output.txt" what folders need to be moved
+    ->Move the folders into a new/existing empty folder
+    ->The name of the folder is chosen by the user at runtime
+    ->Will move both the training and testing variants of the data
