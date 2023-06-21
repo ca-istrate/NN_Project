@@ -1,0 +1,34 @@
+Here is where I will write notes about the development of the model of this attempt
+
+Data(Dataset) ⨠ A class that will define how we process our data
+    Init:
+        self.x will store the actual images
+        self.y will store the labels
+        self.len will store the length, aka how many elements we have in x
+    getItem:
+        will return the item at specified index (the image and label)
+    len:
+        take a guess
+Simple Net(nn.Module) ⨠ Defines the structure of our neural network
+    for now it has 3 layers:
+        I will denote ⨴ as input and ⨵ as output (the semicircle points towards the direction of the weights)
+        fc1 ⨠ ⨴ 200*200*3 = 120,000 (the resolution of the image multiplied with the rgb color values of each pixel)
+            ⨠ ⨵ 400 (It could be higher I think, but I do not want to wait half an hour while testing)
+        fc2 ⨠ ⨴ 400 (it takes as input the connections from the previous node)
+            ⨠ ⨵ 200 (dividing it. I don't have a concrete reason, but it works rather well)
+        fc3 ⨠ ⨴ 200
+            ⨠ ⨵ 12 (the total number of classes used for this example)
+    forward(x):
+        defines what happens in the forward pass: Takes every layer in order and applies ReLU activation function
+            *NOTE: I tried with tanh, but it performs way worse, something is going on that I am too dumb to see
+
+Main:
+    We first prepare the data input. I first declared a transform component which will be used later
+    We then load the data into trainSet and testSet. When we load the data we use the transform component.
+    The transform component resizes and crops the images. It also converts them into tensors
+    Then, we create data loaders which will be used in the training and testing epochs.
+    We then create the NN, set a criterion and optimizer. (idk who is Adam and why is he optimizing our NN)
+    We also create a set of lists that will be used to print in console and on a plot.
+
+    //To be continued after the exam//
+

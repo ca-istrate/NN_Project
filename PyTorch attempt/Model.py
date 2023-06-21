@@ -26,33 +26,39 @@ class Data(Dataset):
 class SimpleNet(nn.Module):
     def __init__(self, num_classes=12):
         super(SimpleNet, self).__init__()
-        self.fc1 = nn.Linear(32 * 32 * 3, 100)  # Fully connected layer with 100 hidden neurons
-        self.fc2 = nn.Linear(100, num_classes)  # Fully connected layer with num_classes outputs
+        self.fc1 = nn.Linear(200 * 200 * 3, 400)  # Fully connected layer with 100 hidden neurons
+        self.fc2 = nn.Linear(400, 200)
+        self.fc3 = nn.Linear(200, num_classes)  # Fully connected layer with num_classes outputs
 
     def forward(self, x):
-        x = x.view(-1, 32 * 32 * 3)  # reshape the input tensor
+
+        x = x.view(-1, 200 * 200 * 3)  # reshape the input tensor
+
         x = self.fc1(x)
-        x = torch.relu(x)
+        x = torch.relu(x)   #.tanh(x)
         x = self.fc2(x)
+        x = torch.relu(x)
+        x = self.fc3(x)
+        #print(x.shape)
         return x
 
 
 if __name__ == '__main__':
-    transform = transforms.Compose([transforms.Resize(255), transforms.CenterCrop(224), transforms.ToTensor()])
-    trainSet = datasets.ImageFolder('Attempt/train', transform=transforms.ToTensor)
-    testSet = datasets.ImageFolder('Attempt/test', transform=transforms.ToTensor)
 
-    trainLoader = DataLoader(trainSet, batch_size=64, shuffle=True)
-    testLoader = DataLoader(trainSet, batch_size=64, shuffle=False)
+    transform = transforms.Compose([transforms.Resize(300), transforms.CenterCrop(200), transforms.ToTensor()])
+    trainSet = datasets.ImageFolder('Attempt/train', transform=transform)
+    testSet = datasets.ImageFolder('Attempt/test', transform=transform)
+    print(torch.cuda.is_available())
+    trainLoader = DataLoader(trainSet, batch_size=12, shuffle=True)
+    testLoader = DataLoader(testSet, batch_size=12, shuffle=False)
     # images, labels = next(iter(trainLoader))
     # plt.imshow(images[0].squeeze())
-
     model = SimpleNet()
     criterion = nn.CrossEntropyLoss()
     optimizer = torch.optim.Adam(model.parameters(), lr=0.001)
 
     # train the model
-    num_epochs = 20
+    num_epochs = 10
     train_loss_history = []
     train_acc_history = []
     val_loss_history = []
@@ -102,3 +108,14 @@ if __name__ == '__main__':
 
         print(
             f'Epoch {epoch + 1}/{num_epochs}, train loss: {train_loss:.4f}, train acc: {train_acc:.4f}, val loss: {val_loss:.4f}, val acc: {val_acc:.4f}')
+    # Plot the training and validation loss
+    plt.plot(train_loss_history, label='train loss')
+    plt.plot(val_loss_history, label='val loss')
+    plt.legend()
+    plt.show()
+
+    # Plot the training and validation accuracy
+    plt.plot(train_acc_history, label='train acc')
+    plt.plot(val_acc_history, label='val acc')
+    plt.legend()
+    plt.show()
