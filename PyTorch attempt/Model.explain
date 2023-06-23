@@ -11,7 +11,7 @@ Data(Dataset) ⨠ A class that will define how we process our data
         take a guess
 Simple Net(nn.Module) ⨠ Defines the structure of our neural network
     for now it has 3 layers:
-        I will denote ⨴ as input and ⨵ as output (the semicircle points towards the direction of the weights)
+        I will denote ⨴ as input and ⨵ as output (the semicircle points towards the side from which the connection come from)
         fc1 ⨠ ⨴ 200*200*3 = 120,000 (the resolution of the image multiplied with the rgb color values of each pixel)
             ⨠ ⨵ 400 (It could be higher I think, but I do not want to wait half an hour while testing)
         fc2 ⨠ ⨴ 400 (it takes as input the connections from the previous node)
@@ -30,5 +30,20 @@ Main:
     We then create the NN, set a criterion and optimizer. (idk who is Adam and why is he optimizing our NN)
     We also create a set of lists that will be used to print in console and on a plot.
 
-    //To be continued after the exam//
+    Epoch loop:
+        -Setting accuracy and loss values for both train and test (val) to 0
+        -For each input with its label from the trainLoader:
+            ⇒set the gradients of all optimized tensors to 0
+            ⇒get the output values of the model
+            ⇒calculate the loss with the cross-entropy loss function
+            ⇒Back propagation and gradient descent
+            ⇒Add the loss to the train loss and accuracy variables
+        -We save the average loss and accuracy
+        -We the set the model to evaluation mode and (disabling the calculation of gradients) test the model:
+            ⇒for each input with its label in the testLoader
+            ⇒We calculate the outputs
+            ⇒Compute the loss
+            ⇒and add it to our variables
+
+    At the end, we generate two graphs that show each train and test accuracy and loss of the model for each epoch
 

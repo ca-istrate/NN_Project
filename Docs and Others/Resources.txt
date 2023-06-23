@@ -1,8 +1,13 @@
-Image classification CNN with pytorch: https://learn.microsoft.com/en-us/windows/ai/windows-ml/tutorials/pytorch-intro
-Image classification NN with pytorch: https://machinelearningmastery.com/building-an-image-classifier-with-a-single-layer-neural-network-in-pytorch/
+Image classification CNN with pytorch: ►https://learn.microsoft.com/en-us/windows/ai/windows-ml/tutorials/pytorch-intro
+                                       ►https://towardsdatascience.com/pytorch-image-classification-tutorial-for-beginners-94ea13f56f2
+                                       ►https://www.pluralsight.com/guides/image-classification-with-pytorch
+
+Image classification NN with pytorch:  ►https://machinelearningmastery.com/building-an-image-classifier-with-a-single-layer-neural-network-in-pytorch/
+
 Example repo for pytorch: https://machinelearningmastery.com/building-an-image-classifier-with-a-single-layer-neural-network-in-pytorch/
 Link to dataset: https://www.kaggle.com/datasets/lsind18/gemstones-images
 Link to "inspiration": https://www.kaggle.com/code/lsind18/gemstones-multiclass-classification-cnn
 
 Pytorch utility sites:
     ⇒ https://pytorch.org/tutorials/beginner/basics/data_tutorial.html ⇛ Loading datasets from folders
+    ⇒ https://pytorch.org/docs/stable/tensors.html ⇛ Info about Tensor functions and data type

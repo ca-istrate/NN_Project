@@ -26,20 +26,19 @@ class Data(Dataset):
 class SimpleNet(nn.Module):
     def __init__(self, num_classes=12):
         super(SimpleNet, self).__init__()
-        self.fc1 = nn.Linear(200 * 200 * 3, 400)  # Fully connected layer with 100 hidden neurons
-        self.fc2 = nn.Linear(400, 200)
+        self.fc1 = nn.Linear(200 * 200 * 3, 400)  # Fully connected layer with 400 hidden neurons
+        self.fc2 = nn.Linear(400, 200)  # Fully connected layer with 200 hidden neurons
         self.fc3 = nn.Linear(200, num_classes)  # Fully connected layer with num_classes outputs
 
     def forward(self, x):
-
         x = x.view(-1, 200 * 200 * 3)  # reshape the input tensor
 
         x = self.fc1(x)
-        x = torch.relu(x)   #.tanh(x)
+        x = torch.relu(x)  # .tanh(x)
         x = self.fc2(x)
         x = torch.relu(x)
         x = self.fc3(x)
-        #print(x.shape)
+        # print(x.shape)
         return x
 
 
@@ -48,12 +47,18 @@ if __name__ == '__main__':
     transform = transforms.Compose([transforms.Resize(300), transforms.CenterCrop(200), transforms.ToTensor()])
     trainSet = datasets.ImageFolder('Attempt/train', transform=transform)
     testSet = datasets.ImageFolder('Attempt/test', transform=transform)
-    print(torch.cuda.is_available())
-    trainLoader = DataLoader(trainSet, batch_size=12, shuffle=True)
-    testLoader = DataLoader(testSet, batch_size=12, shuffle=False)
+    print(torch.cuda.is_available())  # Test to see if you can run this model with cuda cores. For now, it does nothing.
+    device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu') # uncomment this to get cuda powaaaa
+    print(device)
+    trainLoader = DataLoader(trainSet, batch_size=12, shuffle=True)  # We have 36 images in these folders, so 3 total batches
+    testLoader = DataLoader(testSet, batch_size=12, shuffle=False)   # At the same time, I am not sure what the batch size does, so having a size of 12 even tho we have like 5 images in each folder does not give an error
     # images, labels = next(iter(trainLoader))
     # plt.imshow(images[0].squeeze())
     model = SimpleNet()
+
+    # Send to gpu powaaaa
+    model = model.cuda()
+
     criterion = nn.CrossEntropyLoss()
     optimizer = torch.optim.Adam(model.parameters(), lr=0.001)
 
@@ -75,6 +80,10 @@ if __name__ == '__main__':
         model.train()
         # iterate over the training data
         for inputs, labels in trainLoader:
+            # Send to gpu powaaaa
+            inputs = inputs.cuda()
+            labels = labels.cuda()
+
             optimizer.zero_grad()
             outputs = model(inputs)
             # compute the loss
@@ -95,6 +104,10 @@ if __name__ == '__main__':
         model.eval()
         with torch.no_grad():
             for inputs, labels in testLoader:
+                # Send to gpu powaaaa
+                inputs = inputs.cuda()
+                labels = labels.cuda()
+
                 outputs = model(inputs)
                 loss = criterion(outputs, labels)
                 val_loss += loss.item()
