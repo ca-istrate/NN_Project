@@ -12,11 +12,12 @@ USE_CUDA = True
 RESIZE_SIZE = 300
 CROP_SIZE = 250
 USE_CROP = True
-BATCH_SIZE = 12
+BATCH_SIZE = 50
 CLASS_COUNT = 12
 VALIDATION_SPLIT = 40
 SHOW_IMAGES = False
-EPOCH_NUMBER = 20
+EPOCH_NUMBER = 100
+CV_EPOCH_NUMBER = 20
 
 class Data(Dataset):
     def __init__(self):
@@ -59,8 +60,8 @@ if __name__ == '__main__':
     else:
         transform = transforms.Compose([transforms.Resize((RESIZE_SIZE, RESIZE_SIZE)), transforms.ToTensor()])
 
-    trainSet = datasets.ImageFolder('Attempt/train', transform=transform)
-    testSet = datasets.ImageFolder('Attempt/test', transform=transform)
+    trainSet = datasets.ImageFolder('Attempt12/train', transform=transform)
+    testSet = datasets.ImageFolder('Attempt12/test', transform=transform)
 
     trainLoader = DataLoader(trainSet, batch_size=BATCH_SIZE, shuffle=True)  # We have 36 batches!! in these folders
     testLoader = DataLoader(testSet, batch_size=BATCH_SIZE, shuffle=False)   # At the same time, I am not sure what the batch size does, so having a size of 12 even tho we have like 5 images in each folder does not give an error
@@ -97,6 +98,8 @@ if __name__ == '__main__':
 
     learning_rates = [0.01, 0.001, 0.0001, 0.00005, 0.00001]
     weight_decay = [10, 1, 0.1, 0.001, 0.0001, 0.00001]
+    # learning_rates = [0.0001]
+    # weight_decay = [0.001]
 
     for lr in learning_rates:
         for wd in weight_decay:
@@ -116,8 +119,10 @@ if __name__ == '__main__':
         val_loss = 0.0
         val_acc = 0.0
 
+        mean_val_acc = 0.0
+
         # Loop through the number of epochs
-        for epoch in range(EPOCH_NUMBER):
+        for epoch in range(CV_EPOCH_NUMBER):
             train_loss = 0.0
             train_acc = 0.0
             val_loss = 0.0
@@ -162,10 +167,14 @@ if __name__ == '__main__':
             val_loss /= len(CVvalLoader)
             val_acc /= len(CVvalLoader.dataset)
 
-            print(
-                f'Epoch {epoch + 1}/{EPOCH_NUMBER}, train loss: {train_loss:.4f}, train acc: {train_acc:.4f}, val loss: {val_loss:.4f}, val acc: {val_acc:.4f}')
+            mean_val_acc += val_acc
 
-        results.append((val_acc, lr, wd))
+            print(
+                f'Epoch {epoch + 1}/{CV_EPOCH_NUMBER}, train loss: {train_loss:.4f}, train acc: {train_acc:.4f}, val loss: {val_loss:.4f}, val acc: {val_acc:.4f}')
+
+        mean_val_acc /= CV_EPOCH_NUMBER
+        results.append((mean_val_acc, lr, wd))
+        print(f"Mean validation accuracy: {mean_val_acc}")
 
     used_result = max(results, key=lambda x: x[0])
     used_lr = used_result[1]
