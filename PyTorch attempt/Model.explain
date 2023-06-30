@@ -22,12 +22,40 @@ Simple Net(nn.Module) ⨠ Defines the structure of our neural network
         defines what happens in the forward pass: Takes every layer in order and applies ReLU activation function
             *NOTE: I tried with tanh, but it performs way worse, something is going on that I am too dumb to see
 
-Main:
-    We first prepare the data input. I first declared a transform component which will be used later
-    We then load the data into trainSet and testSet. When we load the data we use the transform component.
-    The transform component resizes and crops the images. It also converts them into tensors
+Train:
+    A train function was created to ease the process of training different architecture
+    The function takes in the class of the model to be checked and a plethora of other parameters that are used in the training process
+        ⨠class_count - the number of classes to train the model on. The algorithm will grab the in the folder Attempt<class_count>
+		⨠epoch_count - the number of epochs the model will be trained for
+		⨠batch_size - how many samples are fed at one to the model, both when training and when testing
+		⨠learning_rate - the learning rate parameter for the optimiser, used when no CV is done
+		⨠weight_decay - the weight decay parameter for the L2 regularization, used when no CV is done
+		⨠cuda - True / False - whether to use gpu acceleration through CUDA or not
+		⨠resize_size - the size of the square the images are resized to during preprocessing
+		⨠use_crop - True / False - whether to center-crop the resized images or not
+		⨠crop_size - the size of the cropped image
+		⨠cross_validation - True / False - whether to perform cross validation for hyperparameter tuning
+		⨠validation_split_percentage - the percentage of the training set to be used as the validation set
+		⨠validation_epochs - how many epochs to run when performing cross-validation
+		⨠validation_accuracy_check - the number of epochs to average the accuracy of when assessing the hyperparameter combination
+		⨠validation_grid - the hyperparameters and their values on which a grid search optimization will be performed
+		⨠print_to_file - True/ False - whether to also print the console output to a file
+
+	The function at first creates sets up a logging object capable of printing both to the console and a file at the same time\
+	A summary of the parameters if then printed
+	Based on the passed parameters, a transform component is declared, which will act as the template for preprocessing the data
+    We then load the data into train_data and test_data. When we load the data we use the transform component.
+    The transform component resizes and possibly crops the images. It also converts them into tensors
+
+    Then hyperparameters are searched in a simple cross validation setting, if cross validation is enabled.
+    The data is split into a training set and a validation set which are then used to do grid search for any combination of the
+    learning rate and the weight decay.
+    For each combination, a model is trained on those specific hyperparameters for <validation_epochs> epochs, and the average
+    accuracy for the last <validation_accuracy_check> epochs is recorded
+    After all combinations are trained, the set of hyperparameters with the best average accuracy is selected to be used in the main model
+
     Then, we create data loaders which will be used in the training and testing epochs.
-    We then create the NN, set a criterion and optimizer. (idk who is Adam and why is he optimizing our NN)
+    We then create the NN, set a criterion and optimizer using the found hyperparameters. (idk who is Adam and why is he optimizing our NN)
     We also create a set of lists that will be used to print in console and on a plot.
 
     Epoch loop:
@@ -45,5 +73,5 @@ Main:
             ⇒Compute the loss
             ⇒and add it to our variables
 
-    At the end, we generate two graphs that show each train and test accuracy and loss of the model for each epoch
+    At the end, we generate two graphs that show each train and test accuracy and loss of the model for each epoch and a confusion matrix
 
