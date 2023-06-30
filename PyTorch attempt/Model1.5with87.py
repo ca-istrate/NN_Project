@@ -8,16 +8,17 @@ from torchvision import datasets, transforms
 
 import torch.nn as nn
 
-USE_CUDA = True
-RESIZE_SIZE = 300
-CROP_SIZE = 250
+USE_CUDA = False
+RESIZE_SIZE = 120
+CROP_SIZE = 100
 USE_CROP = True
 BATCH_SIZE = 50
-CLASS_COUNT = 12
+CLASS_COUNT = 87
 VALIDATION_SPLIT = 40
 SHOW_IMAGES = False
-EPOCH_NUMBER = 10
-CV_EPOCH_NUMBER = 1
+EPOCH_NUMBER = 50
+CV_EPOCH_NUMBER = 10
+CV_AVERAGE = 5
 
 class Data(Dataset):
     def __init__(self):
@@ -37,9 +38,11 @@ class SimpleNet(nn.Module):
     def __init__(self, num_classes=CLASS_COUNT):
         super(SimpleNet, self).__init__()
         self.image_size = CROP_SIZE if USE_CROP else RESIZE_SIZE
-        self.fc1 = nn.Linear(self.image_size * self.image_size * 3, 400)  # Fully connected layer with 400 hidden neurons
-        self.fc2 = nn.Linear(400, 200)  # Fully connected layer with 200 hidden neurons
-        self.fc3 = nn.Linear(200, num_classes)  # Fully connected layer with num_classes outputs
+        self.fc1 = nn.Linear(self.image_size * self.image_size * 3, 2000)  # Fully connected layer with 400 hidden neurons
+        self.fc2 = nn.Linear(2000, 800)  # Fully connected layer with 200 hidden neurons
+        self.fc3 = nn.Linear(800, 500)  # Fully connected layer with num_classes outputs
+        self.fc4 = nn.Linear(500, 400)  # Fully connected layer with num_classes outputs
+        self.fc5 = nn.Linear(400, num_classes)  # Fully connected layer with num_classes outputs
 
     def forward(self, x):
 
@@ -50,20 +53,22 @@ class SimpleNet(nn.Module):
         x = self.fc2(x)
         x = torch.relu(x)
         x = self.fc3(x)
+        x = torch.relu(x)
+        x = self.fc4(x)
+        x = torch.relu(x)
+        x = self.fc5(x)
         # print(x.shape)
         return x
 
 
 if __name__ == '__main__':
     if USE_CROP:
-        transform = transforms.Compose([transforms.Resize(RESIZE_SIZE), transforms.CenterCrop(CROP_SIZE), transforms.ToTensor()])
+        transform = transforms.Compose([transforms.Resize((RESIZE_SIZE, RESIZE_SIZE)), transforms.CenterCrop(CROP_SIZE), transforms.ToTensor()])
     else:
         transform = transforms.Compose([transforms.Resize((RESIZE_SIZE, RESIZE_SIZE)), transforms.ToTensor()])
 
-    trainSet = datasets.ImageFolder('Attempt12/train', transform=transform)
-    testSet = datasets.ImageFolder('Attempt12/test', transform=transform)
-
-    print(testSet.class_to_idx)
+    trainSet = datasets.ImageFolder('Attempt87/train', transform=transform)
+    testSet = datasets.ImageFolder('Attempt87/test', transform=transform)
 
     trainLoader = DataLoader(trainSet, batch_size=BATCH_SIZE, shuffle=True)  # We have 36 batches!! in these folders
     testLoader = DataLoader(testSet, batch_size=BATCH_SIZE, shuffle=False)   # At the same time, I am not sure what the batch size does, so having a size of 12 even tho we have like 5 images in each folder does not give an error
@@ -98,10 +103,13 @@ if __name__ == '__main__':
     grid = []
     results = []
 
-    # learning_rates = [0.01, 0.001, 0.0001, 0.00005, 0.00001]
-    # weight_decay = [10, 1, 0.1, 0.001, 0.0001, 0.00001]
-    learning_rates = [0.0001]
-    weight_decay = [0.001]
+    learning_rates = [0.0001, 0.00005, 0.00001]
+    weight_decay = [0.001, 0.0001, 0.00001]
+    # learning_rates = [0.00005]
+    # weight_decay = [0.0001]
+    # learning_rates = []
+    # weight_decay = []
+
 
     for lr in learning_rates:
         for wd in weight_decay:
@@ -135,8 +143,9 @@ if __name__ == '__main__':
             # iterate over the training data
             for inputs, labels in CVtrainLoader:
                 # Send to gpu powaaaa
-                inputs = inputs.cuda()
-                labels = labels.cuda()
+                if USE_CUDA:
+                    inputs = inputs.cuda()
+                    labels = labels.cuda()
 
                 optimizer.zero_grad()
                 outputs = model(inputs)
@@ -157,8 +166,9 @@ if __name__ == '__main__':
             with torch.no_grad():
                 for inputs, labels in CVvalLoader:
                     # Send to gpu powaaaa
-                    inputs = inputs.cuda()
-                    labels = labels.cuda()
+                    if USE_CUDA:
+                        inputs = inputs.cuda()
+                        labels = labels.cuda()
 
                     outputs = model(inputs)
                     loss = criterion(outputs, labels)
@@ -169,18 +179,22 @@ if __name__ == '__main__':
             val_loss /= len(CVvalLoader)
             val_acc /= len(CVvalLoader.dataset)
 
-            mean_val_acc += val_acc
+            if epoch >= CV_EPOCH_NUMBER - CV_AVERAGE:
+                mean_val_acc += val_acc
 
             print(
                 f'Epoch {epoch + 1}/{CV_EPOCH_NUMBER}, train loss: {train_loss:.4f}, train acc: {train_acc:.4f}, val loss: {val_loss:.4f}, val acc: {val_acc:.4f}')
 
-        mean_val_acc /= CV_EPOCH_NUMBER
+        mean_val_acc /= CV_AVERAGE
         results.append((mean_val_acc, lr, wd))
         print(f"Mean validation accuracy: {mean_val_acc}")
 
     used_result = max(results, key=lambda x: x[0])
     used_lr = used_result[1]
     used_wd = used_result[2]
+    # used_lr = 0.00005
+    # used_wd = 0.0001
+
 
     print(f"\nTraining the final model using a learning rate of {used_lr} and weight decay of {used_wd}\n")
 
@@ -268,16 +282,18 @@ if __name__ == '__main__':
     plt.legend()
     plt.show()
 
-    # Plot the confusion matrix
     confusion_matrix = np.zeros((CLASS_COUNT, CLASS_COUNT))
     for predicted, real in final_res:
-        confusion_matrix[real,predicted] += 1
+        confusion_matrix[real, predicted] += 1
 
-    plt.matshow(confusion_matrix)
-    for x in range(CLASS_COUNT):
-        for y in range(CLASS_COUNT):
-            plt.text(x, y, str(confusion_matrix[y,x]), va='center', ha='center')
+    fig, ax = plt.subplots()
+
+    ax.matshow(confusion_matrix)
+    # for x in range(CLASS_COUNT):
+    #     for y in range(CLASS_COUNT):
+    #         ax.text(x, y, str(confusion_matrix[y,x]), va='center', ha='center')
+
+    np.savetxt("Confusion_matrix.txt", confusion_matrix, fmt="%.1e")
 
     plt.show()
 
-    np.savetxt("Confusion_matrix.txt", confusion_matrix, fmt="%.1e")

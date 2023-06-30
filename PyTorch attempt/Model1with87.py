@@ -13,10 +13,10 @@ RESIZE_SIZE = 300
 CROP_SIZE = 250
 USE_CROP = True
 BATCH_SIZE = 50
-CLASS_COUNT = 12
+CLASS_COUNT = 87
 VALIDATION_SPLIT = 40
 SHOW_IMAGES = False
-EPOCH_NUMBER = 10
+EPOCH_NUMBER = 40
 CV_EPOCH_NUMBER = 1
 
 class Data(Dataset):
@@ -60,8 +60,8 @@ if __name__ == '__main__':
     else:
         transform = transforms.Compose([transforms.Resize((RESIZE_SIZE, RESIZE_SIZE)), transforms.ToTensor()])
 
-    trainSet = datasets.ImageFolder('Attempt12/train', transform=transform)
-    testSet = datasets.ImageFolder('Attempt12/test', transform=transform)
+    trainSet = datasets.ImageFolder('Attempt87/train', transform=transform)
+    testSet = datasets.ImageFolder('Attempt87/test', transform=transform)
 
     print(testSet.class_to_idx)
 
@@ -273,11 +273,14 @@ if __name__ == '__main__':
     for predicted, real in final_res:
         confusion_matrix[real,predicted] += 1
 
-    plt.matshow(confusion_matrix)
-    for x in range(CLASS_COUNT):
-        for y in range(CLASS_COUNT):
-            plt.text(x, y, str(confusion_matrix[y,x]), va='center', ha='center')
+    fig, ax = plt.subplots(figsize=(CLASS_COUNT/2, CLASS_COUNT/2))
+
+    ax.matshow(confusion_matrix)
+    # for x in range(CLASS_COUNT):
+    #     for y in range(CLASS_COUNT):
+    #         ax.text(x, y, str(confusion_matrix[y,x]), va='center', ha='center')
+
+    print(confusion_matrix)
 
     plt.show()
 
-    np.savetxt("Confusion_matrix.txt", confusion_matrix, fmt="%.1e")
