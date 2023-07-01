@@ -42,4 +42,5 @@ if __name__ == '__main__':
     print(classes[type_count - 21:type_count - 10])
     ax.grid()
     ax.legend(fontsize=12)
+    ax.set(xlabel="Classes", ylabel="Number of Images")
     plt.show()
