@@ -1,0 +1,17 @@
+12:34:16 Started training model SecondModel with timestamp 1688290456964765700 using the following parameters:
+class_count=87
+epoch_count=100
+batch_size=50
+learning_rate=0.0001
+weight_decay=1e-05
+cuda=False
+resize_size=300
+use_crop=True
+crop_size=250
+cross_validation=False
+validation_split_percentage=40
+validation_epochs=20
+validation_accuracy_check=10
+validation_grid=None
+print_to_file=True
+

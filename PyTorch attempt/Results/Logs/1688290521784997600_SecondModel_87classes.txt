@@ -1,0 +1,120 @@
+12:35:21 Started training model SecondModel with timestamp 1688290521784997600 using the following parameters:
+class_count=87
+epoch_count=100
+batch_size=50
+learning_rate=0.0001
+weight_decay=1e-05
+cuda=False
+resize_size=300
+use_crop=True
+crop_size=250
+cross_validation=False
+validation_split_percentage=40
+validation_epochs=20
+validation_accuracy_check=10
+validation_grid=None
+print_to_file=True
+
+12:35:21 Key for the classes:
+{'Alexandrite': 0, 'Almandine': 1, 'Amazonite': 2, 'Amber': 3, 'Amethyst': 4, 'Ametrine': 5, 'Andalusite': 6, 'Andradite': 7, 'Aquamarine': 8, 'Aventurine Green': 9, 'Aventurine Yellow': 10, 'Benitoite': 11, 'Beryl Golden': 12, 'Bixbite': 13, 'Bloodstone': 14, 'Blue Lace Agate': 15, 'Carnelian': 16, 'Cats Eye': 17, 'Chalcedony': 18, 'Chalcedony Blue': 19, 'Chrome Diopside': 20, 'Chrysoberyl': 21, 'Chrysocolla': 22, 'Chrysoprase': 23, 'Citrine': 24, 'Coral': 25, 'Danburite': 26, 'Diamond': 27, 'Diaspore': 28, 'Dumortierite': 29, 'Emerald': 30, 'Fluorite': 31, 'Garnet Red': 32, 'Goshenite': 33, 'Grossular': 34, 'Hessonite': 35, 'Hiddenite': 36, 'Iolite': 37, 'Jade': 38, 'Jasper': 39, 'Kunzite': 40, 'Kyanite': 41, 'Labradorite': 42, 'Lapis Lazuli': 43, 'Larimar': 44, 'Malachite': 45, 'Moonstone': 46, 'Morganite': 47, 'Onyx Black': 48, 'Onyx Green': 49, 'Onyx Red': 50, 'Opal': 51, 'Pearl': 52, 'Peridot': 53, 'Prehnite': 54, 'Pyrite': 55, 'Pyrope': 56, 'Quartz Beer': 57, 'Quartz Lemon': 58, 'Quartz Rose': 59, 'Quartz Rutilated': 60, 'Quartz Smoky': 61, 'Rhodochrosite': 62, 'Rhodolite': 63, 'Rhodonite': 64, 'Ruby': 65, 'Sapphire Blue': 66, 'Sapphire Pink': 67, 'Sapphire Purple': 68, 'Sapphire Yellow': 69, 'Scapolite': 70, 'Serpentine': 71, 'Sodalite': 72, 'Spessartite': 73, 'Sphene': 74, 'Spinel': 75, 'Spodumene': 76, 'Sunstone': 77, 'Tanzanite': 78, 'Tigers Eye': 79, 'Topaz': 80, 'Tourmaline': 81, 'Tsavorite': 82, 'Turquoise': 83, 'Variscite': 84, 'Zircon': 85, 'Zoisite': 86}
+12:35:23 ====== Train the model using lr of 0.0001 and wd of 1e-05 ======
+12:39:31 Epoch 1/100, train loss: 4.4370, train acc: 0.0406, val loss: 4.0820, val acc: 0.0909
+12:42:37 Epoch 2/100, train loss: 3.7429, train acc: 0.1103, val loss: 3.4870, val acc: 0.1295
+12:46:05 Epoch 3/100, train loss: 3.1681, train acc: 0.1971, val loss: 3.0716, val acc: 0.2149
+12:49:27 Epoch 4/100, train loss: 2.6808, train acc: 0.2612, val loss: 2.6574, val acc: 0.2893
+12:52:57 Epoch 5/100, train loss: 2.3279, train acc: 0.3452, val loss: 2.3766, val acc: 0.3058
+12:56:04 Epoch 6/100, train loss: 2.0864, train acc: 0.3876, val loss: 2.3281, val acc: 0.3416
+12:59:11 Epoch 7/100, train loss: 1.9692, train acc: 0.4090, val loss: 2.2529, val acc: 0.3829
+13:02:29 Epoch 8/100, train loss: 1.8764, train acc: 0.4310, val loss: 2.1705, val acc: 0.4215
+13:05:21 Epoch 9/100, train loss: 1.7522, train acc: 0.4646, val loss: 2.0949, val acc: 0.3939
+13:08:19 Epoch 10/100, train loss: 1.6366, train acc: 0.5014, val loss: 2.2459, val acc: 0.3636
+13:11:05 Epoch 11/100, train loss: 1.6332, train acc: 0.5011, val loss: 2.0242, val acc: 0.4187
+13:14:12 Epoch 12/100, train loss: 1.6091, train acc: 0.5028, val loss: 2.0079, val acc: 0.4270
+13:17:25 Epoch 13/100, train loss: 1.4949, train acc: 0.5315, val loss: 1.9896, val acc: 0.4022
+13:20:20 Epoch 14/100, train loss: 1.3974, train acc: 0.5683, val loss: 1.9912, val acc: 0.4077
+13:23:11 Epoch 15/100, train loss: 1.3308, train acc: 0.5819, val loss: 2.2174, val acc: 0.4077
+13:26:08 Epoch 16/100, train loss: 1.3501, train acc: 0.5728, val loss: 2.0039, val acc: 0.4463
+13:29:11 Epoch 17/100, train loss: 1.2074, train acc: 0.6127, val loss: 1.9268, val acc: 0.4435
+13:32:28 Epoch 18/100, train loss: 1.1727, train acc: 0.6145, val loss: 2.2043, val acc: 0.4187
+13:35:41 Epoch 19/100, train loss: 1.1712, train acc: 0.6264, val loss: 1.8912, val acc: 0.4545
+13:38:51 Epoch 20/100, train loss: 1.0844, train acc: 0.6523, val loss: 1.9797, val acc: 0.4656
+13:42:32 Epoch 21/100, train loss: 1.0879, train acc: 0.6453, val loss: 1.9596, val acc: 0.4435
+13:46:26 Epoch 22/100, train loss: 1.0472, train acc: 0.6572, val loss: 2.0951, val acc: 0.4408
+13:50:02 Epoch 23/100, train loss: 0.9831, train acc: 0.6796, val loss: 1.9418, val acc: 0.4766
+13:53:24 Epoch 24/100, train loss: 0.8745, train acc: 0.7192, val loss: 2.0551, val acc: 0.4325
+13:56:37 Epoch 25/100, train loss: 0.8888, train acc: 0.7216, val loss: 1.9586, val acc: 0.4601
+13:59:42 Epoch 26/100, train loss: 0.8582, train acc: 0.7269, val loss: 1.9760, val acc: 0.4711
+14:02:31 Epoch 27/100, train loss: 0.7845, train acc: 0.7472, val loss: 2.0275, val acc: 0.4573
+14:05:32 Epoch 28/100, train loss: 0.7359, train acc: 0.7581, val loss: 2.0055, val acc: 0.4848
+14:08:42 Epoch 29/100, train loss: 0.7086, train acc: 0.7773, val loss: 2.0895, val acc: 0.4601
+14:12:12 Epoch 30/100, train loss: 0.7123, train acc: 0.7735, val loss: 1.9250, val acc: 0.4711
+14:15:25 Epoch 31/100, train loss: 0.6690, train acc: 0.7822, val loss: 1.9376, val acc: 0.5041
+14:18:20 Epoch 32/100, train loss: 0.5672, train acc: 0.8267, val loss: 2.1635, val acc: 0.4601
+14:21:11 Epoch 33/100, train loss: 0.5957, train acc: 0.8057, val loss: 2.0488, val acc: 0.4545
+14:24:08 Epoch 34/100, train loss: 0.5677, train acc: 0.8193, val loss: 2.0249, val acc: 0.4545
+14:27:19 Epoch 35/100, train loss: 0.6100, train acc: 0.8004, val loss: 2.0849, val acc: 0.4738
+14:30:14 Epoch 36/100, train loss: 0.5561, train acc: 0.8106, val loss: 2.3353, val acc: 0.4380
+14:33:01 Epoch 37/100, train loss: 0.4828, train acc: 0.8526, val loss: 2.1486, val acc: 0.4793
+14:35:47 Epoch 38/100, train loss: 0.4813, train acc: 0.8498, val loss: 2.1166, val acc: 0.4821
+14:38:37 Epoch 39/100, train loss: 0.4715, train acc: 0.8536, val loss: 2.2456, val acc: 0.4408
+14:41:23 Epoch 40/100, train loss: 0.4085, train acc: 0.8722, val loss: 2.1282, val acc: 0.4793
+14:44:13 Epoch 41/100, train loss: 0.3583, train acc: 0.8936, val loss: 2.2092, val acc: 0.4848
+14:47:11 Epoch 42/100, train loss: 0.3595, train acc: 0.8862, val loss: 2.4208, val acc: 0.4463
+14:50:06 Epoch 43/100, train loss: 0.3463, train acc: 0.8911, val loss: 2.2205, val acc: 0.4628
+14:53:03 Epoch 44/100, train loss: 0.4017, train acc: 0.8743, val loss: 2.3004, val acc: 0.4766
+14:55:57 Epoch 45/100, train loss: 0.2746, train acc: 0.9261, val loss: 2.3616, val acc: 0.4793
+14:58:59 Epoch 46/100, train loss: 0.2524, train acc: 0.9261, val loss: 2.3356, val acc: 0.5041
+15:02:08 Epoch 47/100, train loss: 0.2936, train acc: 0.9181, val loss: 2.6843, val acc: 0.4656
+15:05:17 Epoch 48/100, train loss: 0.2369, train acc: 0.9293, val loss: 2.2773, val acc: 0.5014
+15:08:28 Epoch 49/100, train loss: 0.2107, train acc: 0.9429, val loss: 2.5123, val acc: 0.4848
+15:11:27 Epoch 50/100, train loss: 0.3944, train acc: 0.8757, val loss: 2.2973, val acc: 0.4821
+15:14:30 Epoch 51/100, train loss: 0.2163, train acc: 0.9401, val loss: 2.4235, val acc: 0.5041
+15:17:56 Epoch 52/100, train loss: 0.1653, train acc: 0.9615, val loss: 2.3697, val acc: 0.4959
+15:21:11 Epoch 53/100, train loss: 0.1776, train acc: 0.9548, val loss: 2.5268, val acc: 0.5069
+15:24:26 Epoch 54/100, train loss: 0.1977, train acc: 0.9454, val loss: 2.6100, val acc: 0.4628
+15:27:42 Epoch 55/100, train loss: 0.3058, train acc: 0.9111, val loss: 2.7087, val acc: 0.4821
+15:31:13 Epoch 56/100, train loss: 0.2634, train acc: 0.9247, val loss: 2.5447, val acc: 0.5124
+15:34:12 Epoch 57/100, train loss: 0.1565, train acc: 0.9604, val loss: 2.8364, val acc: 0.4738
+15:37:29 Epoch 58/100, train loss: 0.1332, train acc: 0.9681, val loss: 2.5772, val acc: 0.4986
+15:40:36 Epoch 59/100, train loss: 0.2129, train acc: 0.9426, val loss: 2.6113, val acc: 0.4711
+15:43:41 Epoch 60/100, train loss: 0.1146, train acc: 0.9737, val loss: 2.7168, val acc: 0.4876
+15:46:59 Epoch 61/100, train loss: 0.2173, train acc: 0.9338, val loss: 2.8111, val acc: 0.4573
+15:50:13 Epoch 62/100, train loss: 0.1257, train acc: 0.9643, val loss: 2.6421, val acc: 0.4959
+15:53:19 Epoch 63/100, train loss: 0.1241, train acc: 0.9681, val loss: 2.7286, val acc: 0.5069
+15:56:01 Epoch 64/100, train loss: 0.1618, train acc: 0.9520, val loss: 2.8614, val acc: 0.4628
+15:58:42 Epoch 65/100, train loss: 0.1720, train acc: 0.9464, val loss: 3.0010, val acc: 0.4711
+16:01:26 Epoch 66/100, train loss: 0.0962, train acc: 0.9772, val loss: 2.8181, val acc: 0.5096
+16:04:07 Epoch 67/100, train loss: 0.0674, train acc: 0.9877, val loss: 2.9451, val acc: 0.4959
+16:06:52 Epoch 68/100, train loss: 0.0707, train acc: 0.9874, val loss: 2.8066, val acc: 0.4766
+16:09:37 Epoch 69/100, train loss: 0.1312, train acc: 0.9601, val loss: 3.3893, val acc: 0.4518
+16:12:33 Epoch 70/100, train loss: 0.1755, train acc: 0.9405, val loss: 2.9423, val acc: 0.4848
+16:15:24 Epoch 71/100, train loss: 0.0955, train acc: 0.9776, val loss: 3.0615, val acc: 0.5179
+16:18:17 Epoch 72/100, train loss: 0.1625, train acc: 0.9555, val loss: 3.2441, val acc: 0.4876
+16:21:04 Epoch 73/100, train loss: 0.1778, train acc: 0.9419, val loss: 3.5400, val acc: 0.4490
+16:23:49 Epoch 74/100, train loss: 0.4257, train acc: 0.8729, val loss: 2.9048, val acc: 0.4931
+16:26:34 Epoch 75/100, train loss: 0.0829, train acc: 0.9811, val loss: 2.8689, val acc: 0.5041
+16:29:27 Epoch 76/100, train loss: 0.0455, train acc: 0.9919, val loss: 2.9936, val acc: 0.5014
+16:32:11 Epoch 77/100, train loss: 0.0418, train acc: 0.9930, val loss: 3.1104, val acc: 0.5041
+16:34:54 Epoch 78/100, train loss: 0.1223, train acc: 0.9706, val loss: 3.1955, val acc: 0.4683
+16:37:37 Epoch 79/100, train loss: 0.2281, train acc: 0.9352, val loss: 3.1075, val acc: 0.4848
+16:40:29 Epoch 80/100, train loss: 0.1962, train acc: 0.9380, val loss: 3.2796, val acc: 0.4187
+16:43:12 Epoch 81/100, train loss: 0.1141, train acc: 0.9667, val loss: 3.3147, val acc: 0.4848
+16:45:56 Epoch 82/100, train loss: 0.0701, train acc: 0.9846, val loss: 3.3422, val acc: 0.4573
+16:48:39 Epoch 83/100, train loss: 0.1719, train acc: 0.9524, val loss: 3.3133, val acc: 0.4959
+16:51:27 Epoch 84/100, train loss: 0.0908, train acc: 0.9741, val loss: 3.2993, val acc: 0.4766
+16:54:12 Epoch 85/100, train loss: 0.0380, train acc: 0.9909, val loss: 3.1704, val acc: 0.5041
+16:56:59 Epoch 86/100, train loss: 0.0316, train acc: 0.9930, val loss: 3.2765, val acc: 0.4986
+16:59:46 Epoch 87/100, train loss: 0.0238, train acc: 0.9954, val loss: 3.2287, val acc: 0.5179
+17:02:33 Epoch 88/100, train loss: 0.0223, train acc: 0.9947, val loss: 3.2549, val acc: 0.4904
+17:05:23 Epoch 89/100, train loss: 0.0425, train acc: 0.9905, val loss: 3.0929, val acc: 0.4986
+17:08:12 Epoch 90/100, train loss: 0.1046, train acc: 0.9688, val loss: 3.4635, val acc: 0.5152
+17:11:04 Epoch 91/100, train loss: 0.2045, train acc: 0.9317, val loss: 3.6150, val acc: 0.4408
+17:13:52 Epoch 92/100, train loss: 0.3173, train acc: 0.8939, val loss: 3.2564, val acc: 0.4298
+17:16:47 Epoch 93/100, train loss: 0.1741, train acc: 0.9398, val loss: 3.1347, val acc: 0.4848
+17:19:37 Epoch 94/100, train loss: 0.0617, train acc: 0.9849, val loss: 3.1544, val acc: 0.4986
+17:22:22 Epoch 95/100, train loss: 0.0210, train acc: 0.9954, val loss: 3.2860, val acc: 0.5152
+17:25:14 Epoch 96/100, train loss: 0.0151, train acc: 0.9975, val loss: 3.3148, val acc: 0.4931
+17:28:05 Epoch 97/100, train loss: 0.0150, train acc: 0.9972, val loss: 3.3030, val acc: 0.4904
+17:30:56 Epoch 98/100, train loss: 0.0155, train acc: 0.9972, val loss: 3.4429, val acc: 0.4876
+17:33:46 Epoch 99/100, train loss: 0.0133, train acc: 0.9972, val loss: 3.3990, val acc: 0.5344
+17:36:38 Epoch 100/100, train loss: 0.0249, train acc: 0.9930, val loss: 3.4616, val acc: 0.4959
